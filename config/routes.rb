@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :customer_mailers
+
   resources :users
 
   resources :sql_templates

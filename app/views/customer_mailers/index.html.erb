@@ -1,0 +1,27 @@
+<h1>Listing customer_mailers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customer_mailers.each do |customer_mailer| %>
+      <tr>
+        <td><%= customer_mailer.name %></td>
+        <td><%= customer_mailer.email %></td>
+        <td><%= link_to 'Show', customer_mailer %></td>
+        <td><%= link_to 'Edit', edit_customer_mailer_path(customer_mailer) %></td>
+        <td><%= link_to 'Destroy', customer_mailer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Customer mailer', new_customer_mailer_path %>

@@ -1,0 +1,11 @@
+class CustomerMailDrop < Liquid::Drop
+  def initialize(klass)
+    #@klass = CustomerMailer.find(params[:id])
+    @klass = klass
+  end
+  
+  def name
+    @klass.name
+    #@klass[:name]
+  end
+end
