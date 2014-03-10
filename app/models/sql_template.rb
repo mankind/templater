@@ -102,7 +102,7 @@ class SqlTemplate < ActiveRecord::Base
       @body = Marshal.load(self[:body])
     #end
     
-    @body
+    #@body
   end
   
    

@@ -14,12 +14,11 @@ class CustomerMail < ActionMailer::Base
   end
   
   def liquid_database_template(customer)
-    @tmpl = SqlTemplate.find(2)
-    @body = @tmpl.body
-    mail(:to => customer.render(customer.email), 
-    
+    @tmpl = SqlTemplate.find(5) 
+    #@body = @tmpl.body
+    mail(:to => customer.render('email' => 'boyjerry27@yahoo.co.uk'),   
          :subject => "welcome mate!",
-         :body => @tmpl.render
+         :body => @tmpl.render('body' => 'You are great!')
      )
   end
 end

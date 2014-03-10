@@ -19,6 +19,7 @@ class SqlTemplatesController < ApplicationController
 
   # GET /sql_templates/1/edit
   def edit
+    
   end
 
   # POST /sql_templates
