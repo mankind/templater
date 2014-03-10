@@ -1,5 +1,5 @@
 class SqlTemplate < ActiveRecord::Base
-  validates :body, :path, presence: true
+  #validates :body, :path, presence: true
   validates :format, inclusion: Mime::SET.symbols.map(&:to_s)
   validates :locale, inclusion: I18n.available_locales.map(&:to_s) 
   validates :handler, inclusion: ActionView::Template::Handlers.extensions.map(&:to_s)
@@ -57,4 +57,53 @@ class SqlTemplate < ActiveRecord::Base
     end 
     
   end #closes class Resolver
+  
+  #code for rendering the body filed when the template handler is liquid
+  
+  
+  def to_liquid
+    SqlTemplateDrop.new(self)
+  end
+  
+  
+   #email contains the lquid markup to render the address to send the email. When updating this attribute, the
+  # email_template parses the template and stores the serialized object
+  # for quicker rendering.
+  
+  def body=(text)
+    if self[:handler] == 'liquid'
+      @template = Liquid::Template.parse(text)
+      self[:body] = Marshal.dump(@template) 
+        
+        #throws unexpected keyword_rescue, expecting keyword_end
+
+      #rescue Liquid::SyntaxError => error
+      #@syntax_error = error.message  
+ 
+    end   #closes if 
+  end
+  
+  #renders the email field as liquid markpup template
+  def render(options = {})
+    template.render options
+  end
+  
+  private
+  
+  #return  usable template instance
+  def template
+    return @body unless @body.nil?
+    
+    #if self[:body].blank?
+     # @template = Liquid::Template.parse(body)
+      #self[:body] = Marshal.dump(@template)
+      #save
+    #else
+      @body = Marshal.load(self[:body])
+    #end
+    
+    @body
+  end
+  
+   
 end

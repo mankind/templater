@@ -29,6 +29,7 @@ class CustomerMailersController < ApplicationController
     respond_to do |format|
       if @customer_mailer.save
         #deliver the email
+        #CustomerMail.liquid_database_template(@customer_mailer).deliver
         CustomerMail.welcome(@customer_mailer).deliver
         format.html { redirect_to @customer_mailer, notice: 'Customer mailer was successfully created.' }
         format.json { render action: 'show', status: :created, location: @customer_mailer }
